@@ -4,7 +4,11 @@ import { ref } from 'vue';
 let qty = ref(0)
 
 function addValue(){
-  qty.value++
+  if(qty.value>=99){
+    qty.value="+99"
+  }else{
+    qty.value++
+  }
 }
 function minusValue(){
   if(qty.value>0){
@@ -16,16 +20,21 @@ function minusValue(){
 <template>
  <div class="wrapper">
   <div class="profile">
-    <div class="ballon">{{ qty }}</div>
+    <div class="ballon" v-if="qty>0">{{ qty }}</div>
   </div>
   <div class="buttom-wrapper">
     <div class="buttom" @click="addValue">+</div>
     <div class="buttom" @click="minusValue">-</div>
   </div>
+  <div class="notification" v-if="qty>0">(⌐■_■)</div>
+  <div class="notification" v-if="qty==0">(╯°□°）╯︵ ┻━┻</div>
  </div>
 </template>
 
 <style scoped>
+.notification{
+  text-align: center;
+}
 .buttom{
   width: 32px;
   background-color: #F2CB05;
